@@ -42,4 +42,16 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+// Delete account
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const response = await fetch(`https://fakestoreapi.in/api/users/${req.params.id}`, {
+      method: "POST",
+    });
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
