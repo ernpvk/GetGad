@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-// Get all users
-router.get("/", async (req, res, next) => {
+// Get user info
+router.get("/:id", async (req, res, next) => {
   try {
-    const { page = 1, limit = 20 } = req.query;
-    const response = await fetch(`https://fakestoreapi.in/api/users?page=${page}&limit=${limit}`);
+    const response = await fetch(`https://fakestoreapi.in/api/users/${req.params.id}`);
     const data = await response.json();
     res.json(data);
   } catch (error) {
@@ -13,10 +12,14 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Get single user
-router.get("/:id", async (req, res, next) => {
+// Add new user
+router.post("/", async (req, res, next) => {
   try {
-    const response = await fetch(`https://fakestoreapi.in/api/users/${req.params.id}`);
+    const response = await fetch(`https://fakestoreapi.in/api/users`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(req.body),
+    });
     const data = await response.json();
     res.json(data);
   } catch (error) {
