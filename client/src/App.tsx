@@ -1,7 +1,14 @@
-import "./index.css";
+import { BrowserRouter } from 'react-router-dom'
+import Navbar from './components/layouts/Navbar'
 
 function App() {
-  return <div className="p-4">Test</div>;
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen">
+        <Navbar />
+      </div>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
