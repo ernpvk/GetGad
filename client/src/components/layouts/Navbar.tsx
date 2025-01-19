@@ -14,7 +14,7 @@ const Navbar = () => {
             className="flex items-center gap-2 text-2xl font-bold text-primary-600"
           >
             <img
-              src="../assets/getgadlogo.png"
+              src="/assets/getgadlogo.png"
               alt="GetGad"
               className="h-8 w-auto object-contain"
             />

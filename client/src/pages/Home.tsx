@@ -15,7 +15,6 @@ const Home = () => {
   return (
     <main>
       {/* Hero */}
-      {/* Hero */}
       <section className="container mx-auto px-4 py-12">
         <div className="bg-gradient-to-r from-pink-50 to-blue-50 rounded-2xl p-8 md:p-12">
           <div className="flex flex-col md:flex-row items-center gap-8">
@@ -46,6 +45,18 @@ const Home = () => {
         </div>
       </section>
 
+      <section className="container mx-auto px-4 py-12">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
+            <h2 className="text-xl font-semibold">Browse by Category</h2>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
+            <h2 className="text-xl font-semibold">Browse by Category</h2>
+          </div>
+        </div>
+      </section>
       {/* Categories */}
       <section className="container mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-6">
