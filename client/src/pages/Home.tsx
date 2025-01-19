@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { api } from "../services/api";
 import { useState, useEffect } from "react";
 import { Product } from "../types/product";
+import ProductCard from "../components/products/ProductCard";
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -20,6 +21,7 @@ const Home = () => {
         setIsLoading(false);
       }
     };
+
     const fetchCategories = async () => {
       try {
         const data = await api.getAllCategories();
@@ -80,7 +82,6 @@ const Home = () => {
           <section className="container mx-auto px-4 py-12">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
                 <h2 className="text-xl font-semibold">Browse by Category</h2>
               </div>
             </div>
@@ -89,7 +90,7 @@ const Home = () => {
                 <Link
                   key={category}
                   to={`/category/${category}`}
-                  className="flex flex-col items-center p-4 border rounded-lg hover:border-primary-600 transition-colors shadow"
+                  className="flex flex-col items-center p-4 border rounded-lg hover:border-primary-600 hover:shadow-md transition-colors shadow"
                 >
                   <span className="text-2xl mb-2 ">
                     {category === "tv" ? (
@@ -149,7 +150,6 @@ const Home = () => {
           <section className="container mx-auto px-4 py-12">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
                 <h2 className="text-xl font-semibold">Explore Our Products</h2>
               </div>
               <div className="flex gap-2">
@@ -163,26 +163,8 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="group relative border rounded-lg p-4">
-                  <span className="absolute top-4 right-4 bg-blue-500 text-white text-sm px-2 py-1 rounded">
-                    30% Off
-                  </span>
-                  <div className="aspect-square mb-4">
-                    <img
-                      src="/api/placeholder/300/300"
-                      alt="Product"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-medium">Gaming Controller</h3>
-                    <div className="flex gap-2">
-                      <span className="text-primary-600 font-bold">$29.99</span>
-                      <span className="text-gray-400 line-through">$49.99</span>
-                    </div>
-                  </div>
-                </div>
+              {products.map((product, index) => (
+                <ProductCard key={index} product={product} />
               ))}
             </div>
           </section>
