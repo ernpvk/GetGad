@@ -9,11 +9,13 @@ const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const limit = 8;
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProductsPage = async () => {
       try {
-        const data = await api.getAllProducts();
+        const data = await api.getProductPage(page, limit);
         setProducts(data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -33,9 +35,9 @@ const Home = () => {
       }
     };
 
-    fetchProducts();
+    fetchProductsPage();
     fetchCategories();
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -153,10 +155,16 @@ const Home = () => {
                 <h2 className="text-xl font-semibold">Explore Our Products</h2>
               </div>
               <div className="flex gap-2">
-                <button className="p-2 border rounded-full hover:bg-gray-100">
+                <button
+                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                  className="p-2 border rounded-full hover:bg-gray-100"
+                >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <button className="p-2 border rounded-full hover:bg-gray-100">
+                <button
+                  onClick={() => setPage((prev) => prev + 1)}
+                  className="p-2 border rounded-full hover:bg-gray-100"
+                >
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>

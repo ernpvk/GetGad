@@ -13,9 +13,12 @@ const getDiscountPrice = (price: number, discount: number): string => {
 const ProductCard: FC<ProductProps> = ({ product }) => {
   return (
     <div className="group relative border rounded-lg p-4">
-      <span className="absolute top-4 right-4 bg-blue-500 text-white text-sm px-2 py-1 rounded">
-        {product.discount ? `${product.discount}% Off` : "Discount"}
-      </span>
+      {product.discount && (
+        <span className="absolute top-4 right-[-5px] bg-red-500 text-white text-sm px-2 py-1 rounded shadow-lg">
+          {`${product.discount}% Off`}
+        </span>
+      )}
+
       <div className="aspect-square mb-4">
         <img
           src={product.image}
@@ -25,6 +28,9 @@ const ProductCard: FC<ProductProps> = ({ product }) => {
       </div>
       <div className="space-y-2">
         <h3 className="font-medium line-clamp-2">{product.title}</h3>
+        <h4 className="font-medium line-clamp-2 text-gray-400">
+          {product.category}
+        </h4>
         <div className="flex gap-2">
           <span className="text-primary-600 font-bold">{`${getDiscountPrice(
             product.price,
