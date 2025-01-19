@@ -24,6 +24,18 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.get("/category", async (req, res, next) => {
+  try {
+    const response = await fetch(
+      `https://fakestoreapi.in/api/products/category}`
+    );
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/category/:type", async (req, res, next) => {
   try {
     const response = await fetch(
