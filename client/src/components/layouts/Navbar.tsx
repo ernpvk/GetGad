@@ -1,4 +1,4 @@
-import { CircleUserRound, Menu, Search, ShoppingBag } from "lucide-react";
+import { CircleUserRound, Menu, Search } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
