@@ -174,6 +174,13 @@ const Home = () => {
               {products.map((product, index) => (
                 <ProductCard key={index} product={product} />
               ))}
+              <div className="col-span-full flex justify-center mt-10">
+                <Link to={"/products"}>
+                  <button className="gap-2 bg-gray-100 text-primary-600 px-8 py-3 rounded-md hover:bg-gray-200 transition-all">
+                    <span>View All Products</span>
+                  </button>
+                </Link>
+              </div>
             </div>
           </section>
         </main>
