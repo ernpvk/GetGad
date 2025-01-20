@@ -1,67 +1,81 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { SlidersHorizontal } from "lucide-react";
+import { ViewOptions } from "../components/products/ViewOptions";
+import ProductGrid from "../components/products/ProductGrid";
 import { Product } from "../types/product";
+import { api } from "../services/api";
+import Filters from "../components/products/Filters";
 
-const Products: React.FC = () => {
+const Products = () => {
+  const [sort, setSort] = useState("popular");
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
+  // เพิ่ม states สำหรับ products
   const [products, setProducts] = useState<Product[]>([]);
-  const [filters, setFilters] = useState({
-    category: "all",
-    priceRange: [0, 1000],
-    brand: "all",
-    color: "all",
-  });
-  const [sortBy, setSortBy] = useState("popular");
+  const [isLoading, setIsLoading] = useState(true);
+  const limit = 12;
 
+  // Fetch products
   useEffect(() => {
-    // Fetch products from an API or a local data source
     const fetchProducts = async () => {
-      const data = await fetch("/api/products").then((res) => res.json());
-      setProducts(data);
+      try {
+        setIsLoading(true);
+        const data = await api.getAllProducts(150);
+        setProducts(data.products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     fetchProducts();
-  }, []);
-
-  const filteredProducts = products.filter((product) => {
-    // Apply filters here
-    return true;
-  });
-
-  const sortedProducts = filteredProducts.sort((a, b) => {
-    // Implement sorting logic here
-    return 0;
-  });
+  }, [sort]); // เพิ่ม sort เพื่อ fetch ใหม่เมื่อ sort เปลี่ยน
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">Catalog</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Render product cards here */}
-        {sortedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+    <div className="container mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-2xl font-bold">All Products</h1>
       </div>
-      <div className="flex justify-end mt-6">
-        {/* Implement pagination and sorting controls here */}
-      </div>
-    </div>
-  );
-};
 
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  return (
-    <div className="border rounded-lg p-4 hover:shadow-lg transition-shadow duration-300">
-      {/* Render product card content here */}
-      <img
-        src={product.image}
-        alt={product.title}
-        className="w-full h-60 object-contain"
-      />
-      <h3 className="text-lg font-medium mt-4">{product.title}</h3>
-      <p className="text-gray-500">{product.category}</p>
-      <div className="flex items-center justify-between mt-4">
-        <span className="text-primary-600 font-bold">{`$${product.price}`}</span>
-        <button className="bg-primary-600 text-white px-4 py-2 rounded hover:bg-primary-700 transition-colors duration-300">
-          Add to Cart
-        </button>
+      <div className="flex gap-8">
+        <aside className="hidden md:block w-64">
+          <Filters />
+        </aside>
+        <div className="flex flex-col gap-8">
+          <div className="flex items-center gap-4">
+            <span>{products.length} products found</span>
+            {/* Mobile Filter Button */}
+            <button
+              className="md:hidden flex items-center gap-2"
+              onClick={() => setIsMobileFilterOpen(true)}
+            >
+              <SlidersHorizontal size={20} />
+              Filters
+            </button>
+            <div className="ml-auto">
+              <ViewOptions sort={sort} setSort={setSort} />
+            </div>
+          </div>
+
+          <main className="flex-1">
+            <ProductGrid products={products} isLoading={isLoading} />
+          </main>
+        </div>
+
+        {/* Mobile Filters Modal */}
+        {isMobileFilterOpen && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50">
+            <div className="absolute right-0 top-0 h-full w-80 bg-white p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="font-semibold">Filters</h2>
+                <button onClick={() => setIsMobileFilterOpen(false)}>✕</button>
+              </div>
+              <Filters />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

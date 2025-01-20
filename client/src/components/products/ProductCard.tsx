@@ -16,7 +16,7 @@ const ProductCard: FC<ProductProps> = ({ product }) => {
     <div className="group relative border rounded-lg p-4 hover:cursor-pointer hover:shadow-lg transition-all">
       <div className="flex items-center">
         {product.discount && (
-          <span className="absolute top-4 left-[-8px] bg-red-500 text-white text-sm px-2 py-1 rounded shadow-lg">
+          <span className="absolute top-4 left-[-8px] bg-red-500 text-white text-sm px-2 py-1 rounded shadow-lg z-20">
             {`${product.discount}% Off`}
           </span>
         )}
@@ -36,7 +36,7 @@ const ProductCard: FC<ProductProps> = ({ product }) => {
           {product.category}
         </h4>
         <div className="flex gap-2">
-          <span className="text-primary font-bold">
+          <span className="text-black font-bold">
             {getDiscountPrice(product.price, product.discount ?? 0)}
           </span>
           <span className="text-gray-400 line-through">{`$${product.price}`}</span>

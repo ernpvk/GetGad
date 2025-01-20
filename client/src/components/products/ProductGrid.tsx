@@ -7,11 +7,11 @@ interface ProductGridProps {
   isLoading?: boolean;
 }
 
-const ProductList = ({ products, isLoading }: ProductGridProps) => {
+const ProductGrid = ({ products, isLoading }: ProductGridProps) => {
   if (isLoading) {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {Array.from({ length: 12 }).map((_, index) => (
+        {Array.from({ length: 8 }).map((_, index) => (
           <ProductCardSkeleton key={index} />
         ))}
       </div>
@@ -27,4 +27,4 @@ const ProductList = ({ products, isLoading }: ProductGridProps) => {
   );
 };
 
-export default ProductList;
+export default ProductGrid;
