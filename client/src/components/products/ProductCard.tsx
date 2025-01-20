@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Product } from "../../types/product";
 import { ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface ProductProps {
   product: Product;
@@ -12,8 +13,18 @@ const getDiscountPrice = (price: number, discount: number): string => {
 };
 
 const ProductCard: FC<ProductProps> = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleAddToCart = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    console.log(`Added ${product.title} to cart`);
+  };
+
   return (
-    <div className="group relative border rounded-lg p-4 hover:cursor-pointer hover:shadow-lg transition-all">
+    <div
+      className="group relative border rounded-lg p-4 hover:cursor-pointer hover:shadow-lg transition-all"
+      onClick={() => navigate(`/products/${product.id}`)}
+    >
       <div className="flex items-center">
         {product.discount && (
           <span className="absolute top-4 left-[-8px] bg-red-500 text-white text-sm px-2 py-1 rounded shadow-lg z-20">
@@ -42,7 +53,7 @@ const ProductCard: FC<ProductProps> = ({ product }) => {
           <span className="text-gray-400 line-through">{`$${product.price}`}</span>
         </div>
         <button className="w-full bg-primary text-surface-light py-2 rounded flex items-center justify-center gap-2 hover:bg-primary-dark transition-colors">
-          <ShoppingCart size={20} />
+          <ShoppingCart onClick={handleAddToCart} size={20} />
           Add to Cart
         </button>
       </div>

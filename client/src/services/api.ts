@@ -23,6 +23,11 @@ export const api = {
     }
   },
 
+  getProduct: async (id: number) => {
+    const response = await fetch(`${BASE_URL}/products/${id}`);
+    return response.json();
+  },
+
 
   getAllCategories: async () => {
     try {

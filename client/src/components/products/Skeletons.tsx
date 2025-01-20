@@ -47,3 +47,26 @@ export const ProductCardSkeleton = () => (
     </div>
   </div>
 );
+
+export const ProductDetailSkeleton = () => {
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="aspect-square bg-gray-100 rounded-lg animate-pulse" />
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <div className="h-8 bg-gray-100 rounded w-3/4 animate-pulse" />
+            <div className="h-4 bg-gray-100 rounded w-1/2 animate-pulse" />
+          </div>
+          <div className="h-6 bg-gray-100 rounded w-1/4 animate-pulse" />
+          <div className="space-y-4">
+            <div className="h-4 bg-gray-100 rounded animate-pulse" />
+            <div className="h-4 bg-gray-100 rounded animate-pulse" />
+            <div className="h-4 bg-gray-100 rounded w-3/4 animate-pulse" />
+          </div>
+          <div className="h-12 bg-gray-100 rounded animate-pulse" />
+        </div>
+      </div>
+    </div>
+  );
+};
