@@ -14,6 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+
 router.get("/:id", async (req, res, next) => {
   try {
     const response = await fetch(`https://fakestoreapi.in/api/products/${req.params.id}`);
@@ -47,5 +48,18 @@ router.get("/category/:type", async (req, res, next) => {
     next(error);
   }
 });
+
+router.get("/category/:type/:sort", async (req, res, next) => {
+  try {
+    const response = await fetch(
+      `https://fakestoreapi.in/api/products/category?type=${req.params.type}&sort=${req.params.sort}`
+    );
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = router;
