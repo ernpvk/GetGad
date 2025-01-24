@@ -1,7 +1,7 @@
-import { FC } from "react";
 import { Product } from "../../types/product";
 import { ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 interface ProductProps {
   product: Product;
@@ -12,12 +12,13 @@ const getDiscountPrice = (price: number, discount: number): string => {
   return `$${newPrice.toFixed(2)}`;
 };
 
-const ProductCard: FC<ProductProps> = ({ product }) => {
+const ProductCard = ({ product }: ProductProps) => {
+  const { addToCart } = useCart();
   const navigate = useNavigate();
 
-  const handleAddToCart = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    console.log(`Added ${product.title} to cart`);
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent event from bubbling up
+    addToCart(product);
   };
 
   return (
@@ -52,8 +53,11 @@ const ProductCard: FC<ProductProps> = ({ product }) => {
           </span>
           <span className="text-gray-400 line-through">{`$${product.price}`}</span>
         </div>
-        <button className="w-full bg-primary text-surface-light py-2 rounded flex items-center justify-center gap-2 hover:bg-primary-dark transition-colors">
-          <ShoppingCart onClick={handleAddToCart} size={20} />
+        <button
+          onClick={handleAddToCart}
+          className="w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+        >
+          <ShoppingCart className="w-5 h-5" />
           Add to Cart
         </button>
       </div>
