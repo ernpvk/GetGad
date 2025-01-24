@@ -12,9 +12,8 @@ export const ViewOptions = ({ sort, setSort }: ViewOptionsProps) => {
         className="border rounded-lg px-4 py-2"
       >
         <option value="popular">Popular First</option>
-        <option value="price-asc">Low to High</option>
-        <option value="price-desc">High to Low</option>
-        <option value="newest">Newest</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
       </select>
     </div>
   );

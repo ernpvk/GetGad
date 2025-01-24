@@ -1,26 +1,24 @@
-export const HeroSkeleton = () => (
-  <div className="bg-gradient-to-r from-pink-50 to-blue-50 rounded-2xl p-8 md:p-12 animate-pulse">
-    <div className="flex flex-col md:flex-row items-center gap-8">
-      <div className="flex-1 space-y-4">
-        <div className="w-32 h-6 bg-gray-200 rounded-full" />
-        <div className="space-y-2">
-          <div className="h-10 bg-gray-200 rounded w-3/4" />
-          <div className="h-10 bg-gray-200 rounded w-1/2" />
-        </div>
-        <div className="h-8 bg-gray-200 rounded w-24" />
-        <div className="h-12 bg-gray-200 rounded w-40" />
-      </div>
-      <div className="flex-1">
-        <div className="aspect-square bg-gray-200 rounded-lg" />
-      </div>
+import React from "react";
+
+const SkeletonBase = ({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) => (
+  <div className={`relative overflow-hidden ${className}`}>
+    <div className="animate-pulse bg-gray-200 absolute inset-0">
+      <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-wave" />
     </div>
+    {children}
   </div>
 );
 
 export const CategorySkeleton = () => (
   <div className="flex flex-col items-center p-4 border rounded-lg shadow">
-    <div className="w-12 h-12 bg-gray-200 rounded-lg mb-2" />
-    <div className="w-16 h-4 bg-gray-200 rounded" />
+    <SkeletonBase className="w-12 h-12 rounded-lg mb-2" />
+    <SkeletonBase className="w-16 h-4 rounded" />
   </div>
 );
 
@@ -33,40 +31,46 @@ export const CategoriesSkeleton = () => (
 );
 
 export const ProductCardSkeleton = () => (
-  <div className="border rounded-lg p-4">
-    <div className="aspect-square mb-4 bg-gray-200 rounded-md" />
+  <div className="w-full h-full border rounded-lg p-4 bg-white">
+    <SkeletonBase className="aspect-square rounded-md mb-4" />
     <div className="space-y-3">
-      <div className="h-4 bg-gray-200 rounded w-3/4" />
-      <div className="h-4 bg-gray-200 rounded w-1/2" />
-      <div className="h-3 bg-gray-200 rounded w-1/4" />
+      <SkeletonBase className="h-4 rounded w-3/4" />
+      <SkeletonBase className="h-4 rounded w-1/2" />
+      <SkeletonBase className="h-3 rounded w-1/4" />
       <div className="flex gap-2">
-        <div className="h-4 bg-gray-200 rounded w-20" />
-        <div className="h-4 bg-gray-200 rounded w-20" />
+        <SkeletonBase className="h-4 rounded w-20" />
+        <SkeletonBase className="h-4 rounded w-20" />
       </div>
-      <div className="h-10 bg-gray-200 rounded w-full" />
+      <SkeletonBase className="h-10 rounded w-full" />
     </div>
   </div>
 );
 
-export const ProductDetailSkeleton = () => {
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="aspect-square bg-gray-100 rounded-lg animate-pulse" />
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <div className="h-8 bg-gray-100 rounded w-3/4 animate-pulse" />
-            <div className="h-4 bg-gray-100 rounded w-1/2 animate-pulse" />
-          </div>
-          <div className="h-6 bg-gray-100 rounded w-1/4 animate-pulse" />
-          <div className="space-y-4">
-            <div className="h-4 bg-gray-100 rounded animate-pulse" />
-            <div className="h-4 bg-gray-100 rounded animate-pulse" />
-            <div className="h-4 bg-gray-100 rounded w-3/4 animate-pulse" />
-          </div>
-          <div className="h-12 bg-gray-100 rounded animate-pulse" />
+export const ProductsGridSkeleton = () => (
+  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full ">
+    {Array.from({ length: 12 }).map((_, index) => (
+      <ProductCardSkeleton key={index} />
+    ))}
+  </div>
+);
+
+export const ProductDetailSkeleton = () => (
+  <div className="container mx-auto px-4 pt-16 pb-8">
+    <div className="grid md:grid-cols-2 gap-8 mt-10">
+      <SkeletonBase className="aspect-square rounded-lg" />
+      <div className="space-y-6">
+        <div className="space-y-4">
+          <SkeletonBase className="h-8 rounded w-3/4" />
+          <SkeletonBase className="h-4 rounded w-1/2" />
         </div>
+        <SkeletonBase className="h-6 rounded w-1/4" />
+        <div className="space-y-4">
+          <SkeletonBase className="h-4 rounded" />
+          <SkeletonBase className="h-4 rounded" />
+          <SkeletonBase className="h-4 rounded w-3/4" />
+        </div>
+        <SkeletonBase className="h-12 rounded" />
       </div>
     </div>
-  );
-};
+  </div>
+);

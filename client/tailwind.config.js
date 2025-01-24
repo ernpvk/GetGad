@@ -93,15 +93,16 @@ export default {
         "2xl": "1rem",
         full: "9999px",
       },
-      keyframes: {
-        shimmer: {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(100%)" }
-        }
-      },
       animation: {
-        shimmer: "shimmer 2s infinite linear"
-      }
+        wave: 'wave 4s linear infinite',
+      },
+      keyframes: {
+        wave: {
+          '0%': { transform: 'translateX(-100%)' },
+          '50%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
     },
   },
   plugins: [],

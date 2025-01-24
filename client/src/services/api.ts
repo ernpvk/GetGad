@@ -24,10 +24,26 @@ export const api = {
   },
 
   getProduct: async (id: number) => {
-    const response = await fetch(`${BASE_URL}/products/${id}`);
-    return response.json();
+    try {
+      const response = await fetch(`${BASE_URL}/products/${id}`);
+      if (!response.ok) throw new Error("Failed to fetch product");
+      return await response.json();
+    } catch (error) {
+      console.error("Error in getProduct:", error);
+      return null;
+    }
   },
 
+  getProductByCategory: async (category: string) => {
+    try {
+      const response = await fetch(`${BASE_URL}/products/category/${category}`);
+      if (!response.ok) throw new Error("Failed to fetch category products");
+      return await response.json();
+    } catch (error) {
+      console.error("Error in getProductByCategory:", error);
+      return null;
+    }
+  },
 
   getAllCategories: async () => {
     try {
@@ -38,5 +54,5 @@ export const api = {
       console.error("Error in getAllCategories:", error);
       return null;
     }
-  }
+  },
 };
